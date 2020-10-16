@@ -1,0 +1,79 @@
+</div>
+<div class="layout__footer">
+  <footer class="footer">
+    <div class="footer__wrapper container">
+      <div class="waves waves--footer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1900 100" width="1900"
+             xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g transform="translate(-578)">
+            <path class="waves__wave waves__wave-footer-with-opacity"
+                  d="M0,74.3635517 C0,74.3635517 149.686491,112.453979 552.5,94.3635517 C955.313509,76.2731247 1085.21689,63.4466345 1336,24.3635517 C1586.78311,-14.7195311 1900,116 1900,116 L1900,684.363552 L0,684.363552 L0,74.3635517 Z"
+                  opacity="0.4"/>
+            <path class="waves__wave waves__wave-footer-with-opacity"
+                  d="M578,21 C578,21 700,-7.5 1130.5,61.7525987 C1561,131.005197 1663.21689,18.4672903 1914,3.21512382 C2164.78311,-12.0370427 2478,51.0201205 2478,51.0201205 L2478,292 L578,292 L578,21 Z"
+                  opacity="0.4"/>
+            <path class="waves__wave waves__wave--footer-primary"
+                  d="M578,81.0871789 C729,43 948.5,20.5 1208.5,38.5 C1468.5,56.5 2141,147 2478,10 C2478,159 2478,645.450731 2478,645.450731 L578,645.450731 C578,645.450731 578,129 578,81.0871789 Z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="container-inner footer__inner">
+        <div class="footer__col copyright">
+          <a href="https://rpa-technologies.com/" target="_blank">RPAテクノロジーズ</a>
+          <p>Copyright &copy; 2020 RPA Technologies, Inc. All rights reserved.</p>
+          <p><a href="{{dc 'hc_link_terms'}}" target="_blank">{{dc 'hc_button_terms'}}</a> | <a href="{{dc 'hc_link_privacypolicy'}}" target="_blank">{{dc 'hc_button_privacypolicy'}}</a>
+          </p>
+        </div>
+        <div class="footer__col footer__col--social-links">
+          {{#isnt settings.facebook_url '-'}}
+            <a href="{{#if settings.toggle_translations}}{{dc settings.facebook_url}}{{else}}{{settings.facebook_url}}{{/if}}" target="_blank" class="footer-social-link fab fa-facebook"></a>
+          {{/isnt}}
+          {{#isnt settings.twitter_url '-'}}
+            <a href="{{#if settings.toggle_translations}}{{dc settings.twitter_url}}{{else}}{{settings.twitter_url}}{{/if}}" target="_blank" class="footer-social-link fab fa-twitter"></a>
+          {{/isnt}}
+          {{#isnt settings.google_plus_url '-'}}
+            <a href="{{#if settings.toggle_translations}}{{dc settings.google_plus_url}}{{else}}{{settings.google_plus_url}}{{/if}}" target="_blank" class="footer-social-link fab fa-google-plus-g"></a>
+          {{/isnt}}
+          {{#isnt settings.linkedin_url '-'}}
+            <a href="{{#if settings.toggle_translations}}{{dc settings.linkedin_url}}{{else}}{{settings.linkedin_url}}{{/if}}" target="_blank" class="footer-social-link fab fa-linkedin"></a>
+          {{/isnt}}
+          {{#isnt settings.youtube_url '-'}}
+            <a href="{{#if settings.toggle_translations}}{{dc settings.youtube_url}}{{else}}{{settings.youtube_url}}{{/if}}" target="_blank" class="footer-social-link fab fa-youtube"></a>
+          {{/isnt}}
+          {{#isnt settings.pinterest_url '-'}}
+            <a href="{{#if settings.toggle_translations}}{{dc settings.pinterest_url}}{{else}}{{settings.pinterest_url}}{{/if}}" target="_blank" class="footer-social-link fab fa-pinterest-p"></a>
+          {{/isnt}}
+          {{#isnt settings.instagram_url '-'}}
+            <a href="{{#if settings.toggle_translations}}{{dc settings.instagram_url}}{{else}}{{settings.instagram_url}}{{/if}}" target="_blank" class="footer-social-link fab fa-instagram"></a>
+          {{/isnt}}
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+</div>
+
+{{#if settings.toggle_translations}}
+  <div hidden data-lt-i18n-dictionary>
+    <div data-lt-i18n="search_placeholder">{{dc settings.search_placeholder}}</div>
+  </div>
+
+  <script>
+    var $ltDictionary = $('[data-lt-i18n-dictionary]');
+    $('[role="search"] input[type="search"]').each(function (index, el) {
+      $(el).attr('placeholder', $ltDictionary.find('[data-lt-i18n="search_placeholder"]').html());
+    });
+  </script>
+
+  {{/if}}
+
+
+<script type="text/javascript">
+  window.zESettings = {
+    webWidget: {
+      chat: {
+        hideWhenOffline: true
+      }
+    }
+  };
+</script>

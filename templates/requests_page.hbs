@@ -1,0 +1,112 @@
+<div class="container my-activities-page">
+  <div class="container-inner">
+    <header class="my-activities-header">
+  <h1 class="h2">{{t 'my_activities' }}</h1>
+</header>
+
+    <nav class="my-activities-menu my-activities-menu--main">
+      <ul class="my-activities-menu__items clearfix">
+        {{#if help_center.request_management_enabled}}
+          <li class="my-activities-menu__item is-active">{{t 'requests'}}</li>
+        {{/if}}
+        <li class="my-activities-menu__item">{{link 'contributions'}}</li>
+        <li class="my-activities-menu__item ">{{link 'subscriptions'}}</li>
+      </ul>
+    </nav>
+
+    <nav class="my-activities-menu my-activities-menu--sub">
+     <ul class="my-activities-menu__items clearfix">
+        {{#each filters}}
+          <li class="my-activities-menu__item {{#if selected}} is-active {{/if}}">
+            {{#if selected}}
+              {{name}}
+            {{else}}
+              <a href="{{url}}">{{name}}</a>
+            {{/if}}
+          </li>
+        {{/each}}
+      </ul>
+    </nav>
+
+    {{#form 'requests_filter' class='request-table-toolbar'}}
+      <div class="request-table-filters">
+        <div class="request-table-filters__item">
+          {{input 'query' id='quick-search' type='search' class='requests-search'}}
+        </div>
+        <div class="request-table-filters__item">
+          {{label 'organization' for='request-organization-select' class='request-filter-label'}}
+          <div class="request-table-organization">
+            <div class="request-table-organization__col request-table-organization__col--main">
+              {{select 'organization' id='request-organization-select' class='request-filter'}}
+            </div>
+            <div class="request-table-organization__col request-table-organization__col--button">
+              {{subscribe}}
+            </div>
+          </div>
+        </div>
+
+        <div class="request-table-filters__item">
+          {{label 'status' for='request-status-select' class='request-filter-label'}}
+          {{select 'status' id='request-status-select' class='request-filter'}}
+        </div>
+      </div>
+    {{/form}}
+
+
+    {{#if requests}}
+      <div class="my-activities-items my-activities-items--{{current_filter.identifier}}-requests" id="request-table">
+        <div class="my-activities-items__head">
+          <div class="my-activities-items__row">
+            <div class="my-activities-items__col">{{t 'id'}}</div>
+            <div class="my-activities-items__col">{{t 'subject'}}</div>
+            <div class="my-activities-items__col">
+              {{#is current_filter.identifier 'my'}}
+                {{t 'created'}}
+              {{else}}
+                {{t 'requester'}}
+              {{/is}}
+            </div>
+            <div class="my-activities-items__col">{{#link 'requests' sort_by='updated_at'}}{{t 'last_activity'}}{{/link}}</div>
+            <div class="my-activities-items__col">{{t 'status'}}</div>
+          </div>
+        </div>
+        <div class="my-activities-items__body">
+          {{#each requests}}
+            <div class="my-activities-items__row my-activities-item">
+              <div class="my-activities-items__col">
+                <span class="my-activities-items__request-id">{{t 'id'}}</span>  {{id}}
+              </div>
+              <div class="my-activities-items__col">
+                <a class="my-activities-item__title" href="{{url}}">
+                  {{#if subject}}
+                    {{subject}}
+                  {{else}}
+                    {{excerpt description characters=50}}
+                  {{/if}}
+                </a>
+              </div>
+              <div class="my-activities-items__col my-activities-item__meta">
+                {{#is ../current_filter.identifier 'my'}}
+                  {{date created_at timeago=true}}
+                {{else}}
+                  {{requester.name}}
+                {{/is}}
+              </div>
+              <div class="my-activities-items__col my-activities-item__meta">
+                {{date updated_at timeago=true}}
+              </div>
+              <div class="my-activities-items__col my-activities-item__meta">
+                <span class="request-status request-status--{{status}}" title="{{status_description}}">
+                  {{status_name}}
+                </span>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+      {{pagination}}
+    {{else}}
+      <p>{{t 'no_requests'}}</p>
+    {{/if}}
+  </div>
+</div>

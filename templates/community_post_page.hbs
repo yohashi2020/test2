@@ -1,0 +1,172 @@
+<div class="container post-page">
+  <div class="container-inner">
+    <div class="row clearfix">
+  <div class="column column--sm-9">
+    {{breadcrumbs}}
+  </div>
+  <div class="column column--sm-3">
+    {{search submit=false scoped=true class="inpage__search"}}
+  </div>
+</div>
+
+
+    <div class="row clearfix">
+      <div class="column column--sm-8">
+        <article class="post {{#if post.featured}} post--featured {{/if}} {{#if post.pinned}} post--pinned {{/if}}">
+          <div class="post__body">
+            {{#is post.status 'none'}}
+            {{else}}
+              <span class="post-status post-status--{{post.status_dasherized}}">{{post.status_name}} </span>
+            {{/is}}
+            <h1 class="post__title">{{post.title}}</h1>
+
+            <div class="post-meta">
+              <div class="post-meta__col post-meta__col--main">
+                <div class="entry-info">
+                  <div class="entry-info__avatar">
+                    <div class="avatar {{#if post.author.agent}}avatar--agent{{/if}}">
+                      <img class="user-avatar user-avatar--default" src="{{post.author.avatar_url}}" alt="Avatar">
+                    </div>
+                  </div>
+                  <div class="entry-info__content">
+                    <b class="author">
+                      {{#link 'user_profile' id=post.author.id}}
+                        {{post.author.name}}
+                      {{/link}}
+                    </b>
+                    <div class="meta">{{date post.created_at}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="post-meta__col post-meta__col--button">
+                {{subscribe}}
+              </div>
+            </div>
+
+            <div class="post__text markdown">
+              {{post.details}}
+            </div>
+
+          </div>
+
+          <div class="post__voting-and-actions">
+            <div class="vote vote--post">
+              {{post.vote 'up' class='fa fa-angle-up btn vote-control vote-control--up' selected_class='vote-control--active' role='button'}}
+              <div class="vote-sum">
+                {{post.vote 'sum'}}
+              </div>
+              {{post.vote 'down' class='fa fa-angle-down btn vote-control vote-control--down' selected_class='vote-control--active' role='button'}}
+            </div>
+            <div class="post__actions">
+              {{post.actions}}
+            </div>
+          </div>
+        </article>
+
+        <section class="comments" id="comments" itemscope itemtype="http://schema.org/UserComments">
+          <div class="comments__header">
+            <h3>{{t 'comments'}}</h3>
+
+            <div class="comment-sorter">
+              <div class="comment-sorter__col comment-sorter__col--main">
+                {{t 'comments_count' count=post.comment_count}}
+              </div>
+
+              {{#if comments}}
+              <div class="comment-sorter__col comment-sorter__col--filters">
+                <div class="dropdown">
+                  <a class="dropdown-toggle btn btn--default">{{t 'sort_by'}}</a>
+                  <span class="dropdown-menu dropdown-menu-end" role="menu">
+                    {{#each comment_sorters}}
+                      <a aria-selected="{{selected}}" href="{{url}}" role="menuitem">{{name}}</a>
+                    {{/each}}
+                  </span>
+                </div>
+              </div>
+              {{/if}}
+            </div>
+          </div>
+
+          {{#if comments}}
+            <ul class="comments__list">
+              {{#each comments}}
+                <li class="comment {{#if official}}comment--official{{/if}}" id="{{anchor}}">
+                  <div class="comment__inner">
+                    <div class="comment__content">
+                      {{#if official}}
+                        <span class="comment__official-heading">{{t 'official_comment'}}</span>
+                      {{/if}}
+
+                      <div class="entry-info comment__header">
+                        <div class="entry-info__avatar">
+                          <div class="avatar {{#if author.agent}}avatar--agent{{/if}}">
+                            <img class="user-avatar user-avatar--default" src="{{author.avatar_url}}" alt="Avatar">
+                          </div>
+                        </div>
+                        <div class="entry-info__content">
+                          <b class="author">
+                            {{#link 'user_profile' id=author.id}}
+                              {{author.name}}
+                            {{/link}}
+                          </b>
+                          <div class="meta">
+                            {{date created_at}}
+                            {{#if editor}}
+                              ({{t 'edited'}} {{date edited_at timeago=true}})
+                            {{/if}}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="comment__body markdown">
+                        {{body}}
+                      </div>
+                    </div>
+
+                    <div class="comment__voting-and-actions">
+                      {{#unless official}}
+                        <div class="vote vote--comment">
+                          {{vote 'up' class='fa fa-angle-up btn vote-control vote-control--up' role='button'}}
+                          <div class="vote-sum">
+                            {{vote 'sum'}}
+                          </div>
+                          {{vote 'down' class='fa fa-angle-down btn vote-control vote-control--down' role='button'}}
+                        </div>
+                      {{/unless}}
+                      <div class="comment__actions">
+                        {{actions}}
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              {{/each}}
+            </ul>
+            {{pagination}}
+          {{/if}}
+
+          <p class="comments__callout">{{dc 'hc_br_posts_warning_message'}}{{comment_callout}}</p>
+
+          {{#form 'comment' class='comment-form'}}
+            <div class="comment-form__avatar">
+              {{user_avatar class='user-avatar user-avatar--default'}}
+            </div>
+            <div class="comment-form__body">
+              {{wysiwyg 'body'}}
+            </div>
+            <div class="comment-form__controls">
+              {{checkbox 'official'}}
+              {{label 'official'}}
+            </div>
+            {{input type='submit'}}
+          {{/form}}
+        </section>
+      </div>
+      <div class="column column--sm-4">
+        <div class="post-callout">
+          <h3 class="post-callout__title">{{t 'suggest_new_post'}}</h3>
+          {{link 'new_post' role='button' class='btn btn--primary'}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

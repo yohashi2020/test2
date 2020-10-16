@@ -1,0 +1,69 @@
+<div class="container category-page">
+  <div class="container-inner">
+    <div class="row clearfix">
+  <div class="column column--sm-9">
+    {{breadcrumbs}}
+  </div>
+  <div class="column column--sm-3">
+    {{search submit=false scoped=true placeholder="このセクション内を検索" class="inpage__search"}}
+  </div>
+</div>
+
+    <div class="page-header page-header--center">
+      <h1 class="h2">{{category.name}}</h1>
+      {{#if category.description}}
+      <p class="page-description">{{category.description}}</p>
+      {{/if}}
+    </div>
+
+    {{#if sections}}
+      <div class="row section-tree clearfix">
+        {{#each sections}}
+          <section class="column column--sm-6 column--md-4 section">
+            <h3 class="section__title">
+              {{#if internal}}
+                <span class="fas fa-lock" title="{{t 'internal'}}"></span>
+              {{/if}}
+              <a class="section__title-link" href="{{url}}">{{name}}</a>
+            </h3>
+            {{#if sections}}
+	      	    <ul class="article-list">
+	      	  		{{#each sections}}
+	      		  		<li class="article-list-item article-list-item--is-section">
+                    <span class="fas fa-folder"></span>
+                    <a class="article-list-item__link" href="{{url}}">{{name}}</a>
+	      		  		</li>
+        				{{/each}}
+               </ul>
+            {{/if}}
+            {{#if articles}}
+              <ul class="article-list">
+                {{#each articles}}
+                <li class="article-list-item {{#if promoted}}article-list-item--is-promoted{{/if}}" >
+  {{#if promoted}}
+    <span class="fas fa-star" title="{{t 'promoted'}}"></span>
+  {{/if}}
+  <a class="article-list-item__link" href="{{url}}">{{title}}</a>
+</li>
+
+                {{/each}}
+              </ul>
+              {{#if more_articles}}
+                <a href="{{url}}" class="btn btn--default see-all-articles">
+                  {{t 'show_all_articles' count=article_count}}
+                </a>
+              {{/if}}
+
+            {{/if}}
+          </section>
+        {{/each}}
+      </div>
+    {{else}}
+      <div class="column column--xs-12">
+        <p>
+          <i><a href="{{category.url}}">{{t 'empty'}}</a></i>
+        </p>
+      </div>
+    {{/if}}
+  </div>
+</div>

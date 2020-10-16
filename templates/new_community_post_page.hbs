@@ -1,0 +1,55 @@
+<div class="container post-page">
+  <div class="container-inner">
+    <div class="row clearfix">
+  <div class="column column--sm-8">
+    {{breadcrumbs}}
+  </div>
+</div>
+
+<div class="container new-community-post-page">
+  <div class="container-inner">
+    <div class="row clearfix">
+      <div class="column column--sm-8 column--sm-offset-2">
+        <h1 class="new-post-title">{{t 'what_is_your_post_about'}}</h1>
+      
+        <div class="new-post-form">
+          {{#form 'post' class='new_community_post'}}
+            <div class="form-field {{#required 'title'}}required{{/required}}">
+              {{label 'title'}}
+              {{input 'title'}}
+              {{#validate 'title'}}
+                <div class="notification notification-error notification-inline">
+                  {{error 'title'}}
+                </div>
+              {{/validate}}
+            </div>
+
+            {{suggestion_list class='searchbox'}}
+
+            <div class="form-field {{#required 'topic'}}required{{/required}}">
+              <label for="community_post_topic_id">{{dc "hc_br_community_topic_label"}}</label>
+              {{select 'topic'}}
+              {{#validate 'topic'}}
+                <div class="notification notification-error notification-inline">
+                  {{error 'topic'}}
+                </div>
+              {{/validate}}
+            </div>
+          
+            <div class="form-field {{#required 'details'}}required{{/required}}">
+              {{label 'details'}}
+              {{wysiwyg 'details'}}
+              {{#validate 'details'}}
+                <div class="notification notification-error notification-inline">
+                  {{error 'details'}}
+                </div>
+              {{/validate}}
+            </div>
+            <p>※{{dc 'hc_br_posts_warning_message'}}</p>
+            <footer>{{input type='submit'}}</footer>
+          {{/form}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

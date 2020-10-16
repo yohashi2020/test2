@@ -1,0 +1,40 @@
+<div class="container new-request-page">
+  <div class="container-inner">
+    <div class="row clearfix">
+      <div class="column column--sm-8 column--sm-offset-2">
+        <h1 class="new-request-title">{{t 'submit_a_request'}}</h1>
+
+        {{#if parent}}
+        <p>
+          <span class="follow-up-hint">
+            {{follow_up}}
+          </span>
+        </p>
+        {{/if}}
+
+        <div class="new-request-form">
+          <p>
+          <b>・お問い合わせにあたって</b><br>
+          <a href="https://knowledge.bizrobo.com/hc/ja/articles/360027607871" target="_blank"><b>こちら</b></a>をご確認いただき、”問い合わせ時に必要な情報とログ”を取得、添付いただくことでスムーズな調査が可能となります。<br>
+            上記の情報をご連絡いただけていないお問い合わせにつきましては、事象の確認のために再度依頼させていただく場合がございます。
+          </p>
+          <p>
+          <b>・BizRobo! LAND Community</b><br>
+          BizRobo!のユーザーが集うカジュアルなSNSサイト<br>
+            ・ロボットの作り方の質問は<a href="https://community.bizrobo.com/" target="_blank"><b>こちら</b></a>を活用ください。<br>
+            ※ご利用には会員登録が必要です。
+          </p>
+          <p>
+          <b>・BizRobo!開発支援サービスのご案内</b><br>
+          BizRobo!開発における様々な課題や問題を解決すべく、リモートでの開発支援をおこなっております。<br>
+            内容<br>
+            ・ロボットの作成代行<br>
+            ・BizRobo!開発における技術的なご相談<br>
+            <a href="https://rpa-technologies.com/lp/remote-development/" target="_blank"><b>こちら</b></a>をご覧いただき、ご検討くださいますようお願い申し上げます。
+          </p>
+          {{request_form}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

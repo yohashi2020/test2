@@ -1,0 +1,122 @@
+<div class="container topic-page">
+  <div class="container-inner">
+    <div class="row clearfix">
+  <div class="column column--sm-9">
+    {{breadcrumbs}}
+  </div>
+  <div class="column column--sm-3">
+    {{search submit=false scoped=true class="inpage__search"}}
+  </div>
+</div>
+
+
+    <header class="topic">
+      <h1 class="topic__col topic__title">
+        {{#if topic.internal}}
+          <span class="fas fa-lock" title="{{t 'internal'}}"></span>
+        {{/if}}
+        {{topic.name}}
+      </h1>
+      <div class="topic__col topic__col--new-post">
+        {{link 'new_post' role='button' class='btn btn--default' topic_id=topic.id}}
+      </div>
+    </header>
+
+    {{#if topic.description}}
+      <p class="topic-description">{{topic.description}}</p>
+    {{/if}}
+
+    <div class="topic-controls clearfix">
+      <div class="topic-filters topic-controls__item clearfix">
+        <span class="dropdown topic-filters__item">
+          <span class="dropdown-toggle btn btn--default">
+            {{current_filter.label}}
+          </span>
+          <span class="dropdown-menu" role="menu">
+            {{#each filters}}
+              <a href="{{url}}" aria-selected="{{selected}}" role="menuitem">
+                {{name}}
+              </a>
+            {{/each}}
+          </span>
+        </span>
+
+        <span class="dropdown topic-filters__item">
+          <span class="dropdown-toggle btn btn--default">
+            {{current_sorter.label}}
+          </span>
+          <span class="dropdown-menu" role="menu">
+            {{#each sorters}}
+              <a href="{{url}}" aria-selected="{{selected}}" role="menuitem">
+                {{name}}
+              </a>
+            {{/each}}
+          </span>
+        </span>
+      </div>
+      <div class="topic-controls__item topic-controls__item--subscribe">
+        <span class="meta topic-followers">{{t 'follower_count' count=topic.follower_count}}</span> {{subscribe}}
+      </div>
+    </div>
+
+    {{#if posts}}
+  <ul class="list-unstyled post-list">
+    {{#each posts}}
+      <li class="post-list-item {{#if has_official_comment}} question-official-answer {{/if}} {{#if featured}} post-list-item--featured {{/if}} {{#if pinned}} post-list-item--pinned {{/if}}">
+        <div class="post-list-item__col post-list-item__col--main">
+          <h3 class="post-list-item__title">
+            {{#if pinned}}<span class="fas fa-star"></span>{{/if}}
+            <a href="{{url}}">{{title}}</a>
+          </h3>
+          <div class="meta post-list-item__meta">
+            <span class="meta__item">
+              {{#if author.url}}
+                <a href="{{author.url}}" target="_zendesk_lotus">
+                  {{author.name}}
+                </a>
+              {{else}}
+                {{author.name}}
+              {{/if}}
+            </span>
+            <span class="meta__item">
+              {{date created_at timeago=true}}
+            </span>
+            {{! Show the post status, if any }}
+            {{#is status 'none'}}
+            {{else}}
+              <span class="meta__item">
+                <span class="post-status post-status--{{status_dasherized}}">
+                  {{status_name}}
+                </span>
+              </span>
+            {{/is}}
+          </div>
+        </div>
+        <div class="post-list-item__col post-list-item__col--side">
+          <span class="post-info">
+            <span class="post-info__count">
+              {{vote_sum}}
+            </span>
+            <span class="post-info__text">
+              {{t 'vote' count=vote_sum}}
+            </span>
+          </span>
+          <span class="post-info">
+            <span class="post-info__count">
+              {{comment_count}} 
+            </span>
+            <span class="post-info__text">
+              {{t 'comment' count=comment_count}}
+            </span>
+          </span>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+
+  {{pagination}}
+{{else}}
+  <p>{{t 'no_content'}}</p>
+{{/if}}
+  </div>
+</div>
